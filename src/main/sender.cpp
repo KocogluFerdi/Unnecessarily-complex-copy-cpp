@@ -1,4 +1,4 @@
-#include "src/lib/senderPipe.hpp"
+#include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 #include <iostream>
 #include <string>

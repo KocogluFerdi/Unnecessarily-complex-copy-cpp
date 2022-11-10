@@ -9,7 +9,7 @@ cc_library(
 cc_library(
     name = "senderPipe",
     srcs = ["senderPipe.cpp"],
-    hdrs = ["senderPipe.hpp"],
+    hdrs = ["pipeCommon.hpp"],
     deps = [
         "@com_google_googletest//:gtest_main",
     ],
@@ -19,7 +19,7 @@ cc_library(
 cc_library(
     name = "receiverPipe",
     srcs = ["receiverPipe.cpp"],
-    hdrs = ["receiverPipe.hpp"],
+    hdrs = ["pipeCommon.hpp"],
     deps = [
         "@com_google_googletest//:gtest_main",
     ],

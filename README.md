@@ -26,4 +26,4 @@ PIPE, MESSAGE QUEUE, and SHARED MEMORY
 
 1. Run the "environment_setup.sh" to install the required tools.
 2. Run the "build_and_test.sh" to build to binary files of "receiver" and "sender" and to test the program.
-3. The test log can be accessed in "test_log" and the binary files can be accessed in "sender_and_receiver" folder.
+3. The test log can be accessed in "test.log" and the binary files can be accessed in "sender_and_receiver" folder.

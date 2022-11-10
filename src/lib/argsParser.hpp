@@ -23,7 +23,7 @@ public:
         int longindex;
         int ch;
         int fd = -1;
-        while ((ch = getopt_long(argc, argv, "hmqpsf:", longopts, &longindex)) != -1)
+        while ((ch = getopt_long(argc, argv, "hqpsf:", longopts, &longindex)) != -1)
         {
             switch (ch)
             {

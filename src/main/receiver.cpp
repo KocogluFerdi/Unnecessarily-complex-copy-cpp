@@ -1,4 +1,4 @@
-#include "src/lib/receiverPipe.hpp"
+#include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 
 int main(int argc, char **argv)

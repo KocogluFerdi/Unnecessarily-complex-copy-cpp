@@ -1,5 +1,5 @@
-#ifndef LIB_SENDER_PIPE_H_
-#define LIB_SENDER_PIPE_H_
+#ifndef LIB_PIPE_COMMON_H
+#define LIB_PIPE_COMMON_H
 #include <iostream>
 #include <string>
 #include <fcntl.h>
@@ -14,6 +14,19 @@
 #include <errno.h>
 #include <string.h>
 #include <gtest/gtest_prod.h>
+
+class ReceiverPipe
+{
+private:
+    std::string fifoPath_;
+    size_t bufSize_ = 80;
+
+public:
+    ReceiverPipe(const std::string &fifoPath = "/tmp/myfifo");
+    ~ReceiverPipe();
+    void receiveFile(std::string filePath);
+};
+
 class SenderPipe
 {
 private:

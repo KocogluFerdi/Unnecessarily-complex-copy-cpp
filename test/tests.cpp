@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "src/lib/senderPipe.hpp"
-#include "src/lib/receiverPipe.hpp"
+#include "src/lib/pipeCommon.hpp"
+
 
 #include <string>
 #include <thread>

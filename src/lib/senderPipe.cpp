@@ -1,4 +1,4 @@
-#include "senderPipe.hpp"
+#include "pipeCommon.hpp"
 
 SenderPipe::SenderPipe(const std::string &fifoPath)
 :fifoPath_(fifoPath)
