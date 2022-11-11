@@ -2,14 +2,21 @@
 
 SenderPipe::SenderPipe(const std::string &fifoPath)
 :fifoPath_(fifoPath)
-{
-    if(mkfifo(fifoPath_.c_str(), 0666)!=0&& errno!=EEXIST){
-        throw std::runtime_error("mkfifo():"+std::string(strerror(errno)));
-    }
-}
 
-SenderPipe::~SenderPipe()
 {
+if(mkfifo(fifoPath_.c_str(), 0666) !=0)
+{
+    if(errno != EEXIST) 
+    {
+        std::cout << "Error mkfifo(): ";  
+        throw std::runtime_error("mkfifo():"+std::string(strerror(errno)));
+        exit(EXIT_FAILURE);
+    } 
+    else 
+    {
+        std::cout << "FIFO already created" << std::endl;
+        } 
+}
 }
 
 void SenderPipe::sendFile(std::string filePath)
@@ -27,4 +34,9 @@ void SenderPipe::sendFile(std::string filePath)
 
     in.close();
     out.close();
+}
+SenderPipe::~SenderPipe()
+{
+    remove(fifoPath_.c_str());
+    
 }

@@ -28,9 +28,7 @@ public:
             switch (ch)
             {
             case 'f':
-                if ((fd = open(optarg, O_WRONLY | O_CREAT, 0666)) == -1)
-                    throw std::runtime_error("argsParser:Unable to open the file");   
-                fileName = optarg;
+                fileName = optarg;	
                 break;
             case 'p':
                 method = ipcType::Pipe;
@@ -45,7 +43,7 @@ public:
                 std::cout << "Usage: my_program [-p] for file transfer by named pipe" << std::endl;
                 std::cout << "                  [-q] for file transfer by message queue (not implemented yet)" << std::endl;
                 std::cout << "                  [-s] for file transfer by shared memory (not implemented yet)" << std::endl;
-                std::cout << "                  [-f file_path] for choosing the target file" << std::endl;
+                std::cout << "                  [-f] for file to read/write" << std::endl;
                 std::cout << "                  [-h] for this help command" << std::endl;
                 std::cout << "                  Note: Please be careful about the file permissions" << std::endl;
                 method = ipcType::OtherSituation;
@@ -59,10 +57,10 @@ public:
         close(fd);
     }
     ~ArgsParser(){}
-    std::string getFileName(){
+    std::string getFileName()const{
         return fileName;
     };
-    ipcType getMethod(){
+    ipcType getMethod()const{
         return method;
     };
 };

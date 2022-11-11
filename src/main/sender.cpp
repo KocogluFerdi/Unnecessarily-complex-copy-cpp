@@ -1,17 +1,5 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
-#include <iostream>
-#include <string>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <cstdlib>
-#include <fstream>
-#include <getopt.h>
-#include <cstdio>
-#include <cstring>
-
 
 
 int main(int argc, char **argv)

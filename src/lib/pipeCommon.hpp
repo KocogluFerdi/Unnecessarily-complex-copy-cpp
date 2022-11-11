@@ -1,7 +1,6 @@
 #ifndef LIB_PIPE_COMMON_H
 #define LIB_PIPE_COMMON_H
 #include <iostream>
-#include <string>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -13,7 +12,6 @@
 #include <vector>
 #include <errno.h>
 #include <string.h>
-#include <gtest/gtest_prod.h>
 
 class ReceiverPipe
 {
@@ -38,5 +36,6 @@ public:
     ~SenderPipe();
     void sendFile(std::string filePath);
 };
+
 
 #endif
