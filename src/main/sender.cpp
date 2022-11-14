@@ -8,24 +8,27 @@ int main(int argc, char **argv)
         ArgsParser argsParser(argc,argv);
         std::string fileName = argsParser.getFileName();
         ipcType method = argsParser.getMethod();
-        std::cout << "File is used to send:" << fileName << std::endl;
         switch (method)
         {
         case ipcType::Pipe:
         {
+            std::cout << "File is used to send: " << fileName << std::endl;
             std::cout << "Pipe is used:" << std::endl;
             SenderPipe sender;
             sender.sendFile(fileName);
             break;
-        } 
+        }
         case ipcType::OtherSituation:
-            return -1;
+        {
+return 0;
+        }
         default:
+        std::cout << "IPC Type is not valid"<< std::endl;
             return -1;
         }
     }
     catch(const std::exception &e){
-        std::rethrow_exception(std::current_exception());
+        std::cerr << e.what() << '\n';
     }
     return 0;
 }

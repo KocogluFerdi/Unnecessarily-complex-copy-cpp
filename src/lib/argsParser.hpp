@@ -32,6 +32,7 @@ public:
                 break;
             case 'p':
                 method = ipcType::Pipe;
+                fd = 0;
                 break;
             case 's':
                 method = ipcType::SharedMemory;
@@ -47,6 +48,7 @@ public:
                 std::cout << "                  [-h] for this help command" << std::endl;
                 std::cout << "                  Note: Please be careful about the file permissions" << std::endl;
                 method = ipcType::OtherSituation;
+                fd = 0;
                 break;
             default:
                 throw std::runtime_error("argsParser:Args from command line error");

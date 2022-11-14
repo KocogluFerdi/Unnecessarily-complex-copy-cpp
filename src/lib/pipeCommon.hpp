@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <string.h>
 
+
 class ReceiverPipe
 {
 private:
@@ -36,6 +37,9 @@ public:
     ~SenderPipe();
     void sendFile(std::string filePath);
 };
+
+
+
 
 
 #endif
