@@ -197,7 +197,7 @@ TEST_F(PipeTest100m, Pipe)
     deleteFile(receiveFileName);
 }
 
-TEST_F(ArgsParser1, Pipe)
+TEST_F(ArgsParser1, Argsparser)
 {
     ArgsParser argParser (argv.size()-1, argv.data());
 
@@ -210,7 +210,7 @@ TEST_F(ArgsParser1, Pipe)
 
 }
 
-TEST_F(ArgsParser2, Pipe)
+TEST_F(ArgsParser2, Argsparser)
 {
     ArgsParser argParser (argv.size()-1, argv.data());
 
