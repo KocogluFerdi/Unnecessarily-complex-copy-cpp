@@ -13,27 +13,32 @@
 #include <errno.h>
 #include <string.h>
 
-
-class ReceiverPipe
+class CommonPipe
 {
-private:
+protected:
     std::string fifoPath_;
     size_t bufSize_ = 80;
-
 public:
-    ReceiverPipe(const std::string &fifoPath = "/tmp/myfifo");
+CommonPipe(){
+        fifoPath_ = "/tmp/myfifo";
+    }
+   
+};
+
+class ReceiverPipe : public CommonPipe
+{
+public:
+    ReceiverPipe():CommonPipe(){};
+    ReceiverPipe(const std::string &fifoPath);
     ~ReceiverPipe();
     void receiveFile(std::string filePath);
 };
 
-class SenderPipe
+class SenderPipe : public CommonPipe
 {
-private:
-    std::string fifoPath_;
-    size_t bufSize_ = 80;
-
 public:
-    SenderPipe(const std::string &fifoPath = "/tmp/myfifo");
+    SenderPipe():CommonPipe(){};
+    SenderPipe(const std::string &fifoPath);
     ~SenderPipe();
     void sendFile(std::string filePath);
 };

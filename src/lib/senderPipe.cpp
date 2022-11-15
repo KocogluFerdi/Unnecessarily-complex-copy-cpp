@@ -1,9 +1,8 @@
 #include "pipeCommon.hpp"
 
 SenderPipe::SenderPipe(const std::string &fifoPath)
-:fifoPath_(fifoPath)
-
 {
+    fifoPath_ = fifoPath;
 if(mkfifo(fifoPath_.c_str(), 0666) !=0)
 {
     if(errno != EEXIST) 
@@ -19,14 +18,22 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
 }
 
 void SenderPipe::sendFile(const std::string filePath)
-
    { 
+
+    std::ifstream in;
+    std::ofstream out;
+    std::vector<char> buf(bufSize_);
+
+    std::ios_base::iostate exceptionMaskIn = in.exceptions() | std::ios::failbit;
+    in.exceptions(exceptionMaskIn);
+    std::ios_base::iostate exceptionMaskOut = out.exceptions() | std::ios::failbit;
+    out.exceptions(exceptionMaskOut);
+
     try
     {
-        std::ifstream in(filePath, std::ios_base::in | std::ios_base::binary);
-        std::ofstream out(fifoPath_, std::ios_base::out | std::ios_base::binary);
-        std::vector<char> buf(bufSize_);
-
+        in.open(filePath, std::ios_base::in | std::ios_base::binary);
+        out.open(fifoPath_, std::ios_base::out | std::ios_base::binary);
+        
         do
         {
             in.read(buf.data(), buf.size());      
@@ -42,6 +49,7 @@ void SenderPipe::sendFile(const std::string filePath)
     }
     
 }
+
 SenderPipe::~SenderPipe()
 {
     remove(fifoPath_.c_str());
