@@ -3,12 +3,18 @@
 
 DIR="sender_and_receiver"
 if [ -d $DIR ] ; then
-    echo "sender_and_receiver directory exists; delete it first"
+echo "sender_and_receiver directory exist. "
+echo "Do you want to delete it? "
+echo "Type yes or no"
+    rm sender_and_receiver -r
     exit 1
 fi
 
 if [ -f "test.log" ] ; then
-    echo "test.log exists; delete it first"
+    echo "test.log exist."
+    echo "Do you want to delete it?"
+    echo "Type yes or no"
+    rm test.log -r
     exit 1
 fi
 

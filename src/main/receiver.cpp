@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
         {
         case ipcType::Pipe:
         {
-             std::cout << "File is used to receive: " << fileName << std::endl;
+            std::cout << "File is used to receive: " << fileName << std::endl;
             std::cout << "Pipe is used:" << std::endl;
             ReceiverPipe receiver;
             receiver.receiveFile(fileName);
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
         }
         case ipcType::OtherSituation:
         {
-return 0;
+    return 0;
         }
         default:
         std::cout << "IPC Type is not valid"<< std::endl ;
@@ -29,5 +29,5 @@ return 0;
     catch(const std::exception &e){
         std::cerr << e.what() << '\n';
     }
-    return 0;
+    return -1;
 }

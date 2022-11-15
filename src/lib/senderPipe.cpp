@@ -10,7 +10,6 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
     {
         std::cout << "Error mkfifo(): ";  
         throw std::runtime_error("mkfifo():"+std::string(strerror(errno)));
-        exit(EXIT_FAILURE);
     } 
     else 
     {
@@ -19,7 +18,7 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
 }
 }
 
-void SenderPipe::sendFile(std::string filePath)
+void SenderPipe::sendFile(const std::string filePath)
 
    { 
     try
