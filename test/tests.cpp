@@ -1,16 +1,31 @@
 #include <gtest/gtest.h>
 #include "src/lib/pipeCommon.hpp"
+#include "src/lib/argsParser.hpp"
 
 
 #include <string>
 #include <thread>
-
+#include <vector>
 
 void createFile(std::string fileName, std::string fileSize){
     std::system(("truncate -s "+fileSize+" "+fileName).c_str());
 }
 void deleteFile(std::string fileName){
     std::system(("rm "+fileName).c_str());
+}
+void argsTester(std::vector<char*>){
+
+}
+
+std::vector<char*> createArgv(std::vector<std::string> arguments) {
+  std::vector<char*> argv = {};
+  argv.push_back(nullptr);
+  for (const auto& arg : arguments) {
+    argv.push_back((char*)arg.data());
+  }
+  argv.push_back(nullptr);
+
+  return argv;
 }
 
 
@@ -75,6 +90,27 @@ class PipeTest100m : public testing::Test {
   std::string sendFileSize = "100m";
   std::string receiveFileName = "gTEST4";
 };
+
+class ArgsParser1 : public testing::Test {
+  protected:
+  void SetUp() override {
+    argsTester(argv);
+  }
+
+public:
+  std::vector<char*> argv = createArgv({"-h"});
+};
+
+class ArgsParser2 : public testing::Test {
+  protected:
+  void SetUp() override {
+    argsTester(argv);
+  }
+
+public:
+  std::vector<char*> argv = createArgv({"file.txt", "-f", "testPipe", "-p"});
+};
+
 TEST_F(PipeTest1k, Pipe)
 {
 
@@ -161,3 +197,28 @@ TEST_F(PipeTest100m, Pipe)
     deleteFile(receiveFileName);
 }
 
+TEST_F(ArgsParser1, Pipe)
+{
+    ArgsParser argParser (argv.size()-1, argv.data());
+
+    auto argParserGetFileName = [&](){
+        argParser.getFileName();
+    };
+
+    std::thread a_thread(argParserGetFileName);
+    a_thread.join();
+
+}
+
+TEST_F(ArgsParser2, Pipe)
+{
+    ArgsParser argParser (argv.size()-1, argv.data());
+
+    auto argParserGetFileName = [&](){
+        argParser.getFileName();
+    };
+
+    std::thread a_thread(argParserGetFileName);
+    a_thread.join();
+
+}

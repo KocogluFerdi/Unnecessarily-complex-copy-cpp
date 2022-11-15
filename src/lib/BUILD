@@ -2,7 +2,11 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
     name = "argsParser",
+    srcs = ["argsParser.cpp"],
     hdrs = ["argsParser.hpp"],
+    deps = [
+        "@com_google_googletest//:gtest_main",
+    ],
     visibility = ["//visibility:public"],
 )
 
@@ -25,3 +29,4 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
 )
+

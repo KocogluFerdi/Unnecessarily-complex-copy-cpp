@@ -1,7 +1,7 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 
-int main(int argc, char **argv)
+int main(int argc, char* argv[])
 {
     try{
         ArgsParser argsParser(argc,argv);
