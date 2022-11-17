@@ -7,6 +7,7 @@ echo "sender_and_receiver directory exist. "
 echo "Do you want to delete it? "
 echo "Type yes or no"
     rm sender_and_receiver -r
+    exit 1
     
 fi
 
@@ -15,7 +16,7 @@ if [ -f "test.log" ] ; then
     echo "Do you want to delete it?"
     echo "Type yes or no"
     rm test.log -r
-   
+   exit 1
 fi
 
 echo "Start building sender and receiver"
