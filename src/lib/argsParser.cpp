@@ -4,7 +4,6 @@ ArgsParser::ArgsParser(int argc, char* argv[])
 {
     int longindex;
         int ch;
-        int fd = -1;
         while ((ch = getopt_long(argc, argv, "hqpsf:", longopts, &longindex)) != -1)
         {
             switch (ch)
@@ -14,7 +13,6 @@ ArgsParser::ArgsParser(int argc, char* argv[])
                 break;
             case 'p':
                 method = ipcType::Pipe;
-                fd = 0;
                 break;
             case 's':
                 method = ipcType::SharedMemory;
@@ -30,15 +28,12 @@ ArgsParser::ArgsParser(int argc, char* argv[])
                 std::cout << "                  [-h] for this help command" << std::endl;
                 std::cout << "                  Note: Please be careful about the file permissions" << std::endl;
                 method = ipcType::OtherSituation;
-                fd = 0;
                 break;
             default:
                 throw std::runtime_error("argsParser:Args from command line error");
             }
         }
-        if (fd == -1)
-            throw std::runtime_error("argsParser:The file name has not been provided or error happens!");
-        close(fd);
+       
 }
 
 struct option ArgsParser::longopts[] = {

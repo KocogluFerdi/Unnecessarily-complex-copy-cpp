@@ -24,10 +24,6 @@ void SenderPipe::sendFile(const std::string filePath)
     std::ofstream out;
     std::vector<char> buf(bufSize_);
 
-    std::ios_base::iostate exceptionMaskIn = in.exceptions() | std::ios::failbit;
-    in.exceptions(exceptionMaskIn);
-    std::ios_base::iostate exceptionMaskOut = out.exceptions() | std::ios::failbit;
-    out.exceptions(exceptionMaskOut);
 
     try
     {
