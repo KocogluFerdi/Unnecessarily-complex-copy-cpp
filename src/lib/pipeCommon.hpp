@@ -22,7 +22,7 @@ private:
 public:
     ReceiverPipe(const std::string &fifoPath = "/tmp/myfifo");
     ~ReceiverPipe();
-    void receiveFile(std::string filePath);
+    void receiveFile(const std::string &filePath);
 
 };
 
@@ -34,7 +34,7 @@ private:
 public:
     SenderPipe(const std::string &fifoPath = "/tmp/myfifo");
     ~SenderPipe();
-    void sendFile(std::string filePath);
+    void sendFile(const std::string &filePath);
 
 };
 

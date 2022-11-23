@@ -2,19 +2,19 @@
 
 ArgsParser::ArgsParser(int argc, char* argv[])
 {
-    int longindex;
+        int longindex;
         int ch;
-        bool isFileProvided = -1;
+        bool isFileProvided = false; // this is needed to ensure file is provided
         while ((ch = getopt_long(argc, argv, "hqpsf:", longopts, &longindex)) != -1)
         {
             switch (ch)
             {
             case 'f':
-                fileName = optarg;	
+                fileName = optarg;
+                isFileProvided = true;
                 break;
             case 'p':
                 method = ipcType::Pipe;
-                isFileProvided = 0;
                 break;
             case 's':
                 method = ipcType::SharedMemory;
@@ -30,16 +30,17 @@ ArgsParser::ArgsParser(int argc, char* argv[])
                 std::cout << "                  [-h] for this help command" << std::endl;
                 std::cout << "                  Note: Please be careful about the file permissions" << std::endl;
                 method = ipcType::OtherSituation;
-                isFileProvided = 0;
+                isFileProvided = true;
                 break;
             default:
                 throw std::runtime_error("argsParser:Args from command line error");
             }
-            if (isFileProvided == -1)
-            throw std::runtime_error("argsParser:The file name has not been provided or error happens!");
-            close(isFileProvided);
         }
-                                              
+        if (!isFileProvided)
+        {
+            throw std::runtime_error("argsParser:FileName is not provided!");
+        }
+                                    
 }
 
 struct option ArgsParser::longopts[] = {

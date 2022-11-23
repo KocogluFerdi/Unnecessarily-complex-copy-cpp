@@ -1,8 +1,7 @@
 #include "pipeCommon.hpp"
 
-SenderPipe::SenderPipe(const std::string &fifoPath)
+SenderPipe::SenderPipe(const std::string &fifoPath) : fifoPath_(fifoPath)
 {
-    fifoPath_ = fifoPath;
 if(mkfifo(fifoPath_.c_str(), 0666) !=0)
 {
     if(errno != EEXIST) 
@@ -17,9 +16,8 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
 }
 }
 
-void SenderPipe::sendFile(const std::string filePath)
-   { 
-
+void SenderPipe::sendFile(const std::string &filePath)
+   {
     std::ifstream in;
     std::ofstream out;
     std::vector<char> buf(bufSize_);

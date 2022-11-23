@@ -199,7 +199,7 @@ TEST_F(PipeTest100m, Pipe)
 
 TEST_F(ArgsParser1, Argsparser)
 {
-    ArgsParser argParser (argv.size()-1, argv.data());
+    ArgsParser argParser(argv.size()-1, argv.data());
 
     auto argParserGetFileName = [&](){
         argParser.getFileName();
