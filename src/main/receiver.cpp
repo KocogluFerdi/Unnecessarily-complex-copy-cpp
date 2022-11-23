@@ -5,15 +5,14 @@ int main(int argc, char* argv[])
 {
     try{
         ArgsParser argsParser(argc,argv);
-        std::string fileName = argsParser.getFileName();
         switch (argsParser.getMethod())
         {
         case ipcType::Pipe:
         {
-            std::cout << "File is used to receive: " << fileName << std::endl;
-            std::cout << "Pipe is used:" << std::endl;
+            std::cout << "File is used to receive: " <<  argsParser.getFileName() << std::endl;
+            std::cout << "Pipe is used" << std::endl;
             ReceiverPipe receiver;
-            receiver.receiveFile(fileName);
+            receiver.receiveFile(argsParser.getFileName());
             break;
         }
         case ipcType::OtherSituation:
