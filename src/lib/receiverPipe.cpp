@@ -33,8 +33,8 @@ void ReceiverPipe::receiveFile(const std::string &filePath)
             out.write(buf.data(), in.gcount());
         } while (in.gcount()>0);
 
-        in.close();
-        out.close();
+            in.close();
+            out.close();
     }
     catch(const std::exception& e)
     {
