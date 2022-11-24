@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
         {
             std::cout << "IPC Type is not valid" << std::endl;
         }
-            return -1;
+        return -1;
         }
     }
     catch (const std::exception &e)

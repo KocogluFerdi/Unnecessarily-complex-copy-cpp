@@ -33,9 +33,7 @@ ArgsParser::ArgsParser(int argc, char *argv[])
             isFileProvided = true;
             break;
         default:
-        {
             throw std::runtime_error("argsParser:Args from command line error");
-        }
         }
     }
     if (!isFileProvided)
