@@ -21,12 +21,11 @@ int main(int argc, char* argv[])
         }
         default:
         std::cout << "IPC Type is not valid"<< std::endl ;
-            return -1;
-        
+        return -1;
         }
-    }
+        }
     catch(const std::exception &e){
         std::cerr << e.what() << '\n';
-    }
+        }
     return -1;
 }

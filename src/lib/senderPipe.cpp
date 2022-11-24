@@ -12,16 +12,15 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
     else 
     {
         std::cout << "FIFO already created" << std::endl;
-        } 
+    } 
 }
 }
 
 void SenderPipe::sendFile(const std::string &filePath)
-   {
+{
     std::ifstream in;
     std::ofstream out;
     std::vector<char> buf(bufSize_);
-
 
     try
     {
@@ -40,12 +39,10 @@ void SenderPipe::sendFile(const std::string &filePath)
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-    }
-    
+    } 
 }
 
-SenderPipe::~SenderPipe()
+    SenderPipe::~SenderPipe()
 {
-    remove(fifoPath_.c_str());
-    
+    remove(fifoPath_.c_str());   
 }

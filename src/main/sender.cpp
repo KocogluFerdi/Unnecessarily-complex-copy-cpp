@@ -1,13 +1,11 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 
-
 int main(int argc, char* argv[])
 {
     try{
         ArgsParser argsParser(argc,argv);
-        ipcType method = argsParser.getMethod();
-        switch (method)
+        switch (argsParser.getMethod())
         {
         case ipcType::Pipe:
         {
@@ -23,11 +21,11 @@ int main(int argc, char* argv[])
         }
         default:
         std::cout << "IPC Type is not valid"<< std::endl;
-            return -1;
+        return -1;
         }
-    }
+        }
     catch(const std::exception &e){
         std::cerr << e.what() << '\n';
-    }
+        }
     return -1;
 }

@@ -7,8 +7,6 @@ cc_test(
     "//src/lib:senderPipe",
     "//src/lib:receiverPipe",
     "//src/lib:argsParser",
-
   ],
   linkopts = ["-lrt","-lpthread"],
 )
-

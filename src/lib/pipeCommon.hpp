@@ -23,7 +23,6 @@ public:
     ReceiverPipe(const std::string &fifoPath = "/tmp/myfifo");
     ~ReceiverPipe();
     void receiveFile(const std::string &filePath);
-
 };
 
 class SenderPipe
@@ -35,7 +34,6 @@ public:
     SenderPipe(const std::string &fifoPath = "/tmp/myfifo");
     ~SenderPipe();
     void sendFile(const std::string &filePath);
-
 };
 
 #endif

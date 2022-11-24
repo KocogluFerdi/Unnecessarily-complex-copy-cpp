@@ -12,7 +12,7 @@ if(mkfifo(fifoPath_.c_str(), 0666) !=0)
     else 
     {
         std::cout << "FIFO already created" << std::endl;
-        }
+    }
 }
 }
 
@@ -21,8 +21,6 @@ void ReceiverPipe::receiveFile(const std::string &filePath)
     std::ifstream in;
     std::ofstream out;
     std::vector<char> buf(bufSize_);
-
-    
 
     try
     {
@@ -35,19 +33,16 @@ void ReceiverPipe::receiveFile(const std::string &filePath)
             out.write(buf.data(), in.gcount());
         } while (in.gcount()>0);
 
-        
         in.close();
         out.close();
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-    }
-    
-    
+    }  
 }
    
-   ReceiverPipe::~ReceiverPipe()
+    ReceiverPipe::~ReceiverPipe()
 {
     remove(fifoPath_.c_str());
 }

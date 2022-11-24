@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
-
-
 #include <string>
 #include <thread>
 #include <vector>
@@ -17,20 +15,19 @@ void argsTester(std::vector<char*>){
 
 }
 
-std::vector<char*> createArgv(std::vector<std::string> arguments) {
+std::vector<char*> createArgv(std::vector<std::string> arguments) 
+{
   std::vector<char*> argv = {};
   argv.push_back(nullptr);
   for (const auto& arg : arguments) {
     argv.push_back((char*)arg.data());
   }
   argv.push_back(nullptr);
-
   return argv;
 }
 
-
-
-class PipeTest1k : public testing::Test {
+class PipeTest1k : public testing::Test 
+{
  protected:  
   void SetUp() override {
     createFile(sendFileName,sendFileSize);
@@ -46,7 +43,8 @@ class PipeTest1k : public testing::Test {
 
 };
 
-class PipeTest1m : public testing::Test {
+class PipeTest1m : public testing::Test 
+{
  protected:  
   void SetUp() override {
     createFile(sendFileName,sendFileSize);
@@ -61,7 +59,8 @@ class PipeTest1m : public testing::Test {
   std::string receiveFileName = "gTEST2";
 };
 
-class PipeTest10m : public testing::Test {
+class PipeTest10m : public testing::Test 
+{
  protected:  
   void SetUp() override {
     createFile(sendFileName,sendFileSize);
@@ -76,7 +75,8 @@ class PipeTest10m : public testing::Test {
   std::string receiveFileName = "gTEST3";
 };
 
-class PipeTest100m : public testing::Test {
+class PipeTest100m : public testing::Test 
+{
  protected:  
   void SetUp() override {
     createFile(sendFileName,sendFileSize);
@@ -91,7 +91,8 @@ class PipeTest100m : public testing::Test {
   std::string receiveFileName = "gTEST4";
 };
 
-class ArgsParser1 : public testing::Test {
+class ArgsParser1 : public testing::Test 
+{
   protected:
   void SetUp() override {
     argsTester(argv);
@@ -101,7 +102,8 @@ public:
   std::vector<char*> argv = createArgv({"-h"});
 };
 
-class ArgsParser2 : public testing::Test {
+class ArgsParser2 : public testing::Test 
+{
   protected:
   void SetUp() override {
     argsTester(argv);
@@ -113,7 +115,6 @@ public:
 
 TEST_F(PipeTest1k, Pipe)
 {
-
     SenderPipe sender;
     ReceiverPipe receiver;
 
@@ -134,7 +135,6 @@ TEST_F(PipeTest1k, Pipe)
 
 TEST_F(PipeTest1m, Pipe)
 {
-
     SenderPipe sender;
     ReceiverPipe receiver;
 
@@ -155,7 +155,6 @@ TEST_F(PipeTest1m, Pipe)
 
 TEST_F(PipeTest10m, Pipe)
 {
-
     SenderPipe sender;
     ReceiverPipe receiver;
 
@@ -177,7 +176,6 @@ TEST_F(PipeTest10m, Pipe)
 
 TEST_F(PipeTest100m, Pipe)
 {
-
     SenderPipe sender;
     ReceiverPipe receiver;
 
@@ -207,7 +205,6 @@ TEST_F(ArgsParser1, Argsparser)
 
     std::thread a_thread(argParserGetFileName);
     a_thread.join();
-
 }
 
 TEST_F(ArgsParser2, Argsparser)
@@ -220,5 +217,4 @@ TEST_F(ArgsParser2, Argsparser)
 
     std::thread a_thread(argParserGetFileName);
     a_thread.join();
-
 }
