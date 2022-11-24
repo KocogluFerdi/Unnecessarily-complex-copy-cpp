@@ -18,13 +18,16 @@ private:
     std::string fileName;
     ipcType method;
     static struct option longopts[];
+
 public:
-    ArgsParser(int argc, char* argv[]);
-    ~ArgsParser(){}
-    std::string getFileName()const{
+    ArgsParser(int argc, char *argv[]);
+    ~ArgsParser() {}
+    std::string getFileName() const
+    {
         return fileName;
     };
-    ipcType getMethod()const{
+    ipcType getMethod() const
+    {
         return method;
     };
 };

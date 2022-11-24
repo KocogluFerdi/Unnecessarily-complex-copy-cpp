@@ -30,6 +30,7 @@ class SenderPipe
 private:
     std::string fifoPath_;
     size_t bufSize_ = 80;
+
 public:
     SenderPipe(const std::string &fifoPath = "/tmp/myfifo");
     ~SenderPipe();
