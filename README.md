@@ -8,7 +8,7 @@ Goal: Transferring the files between two processes. "sender" program reads the f
 
 The file transfer happens via one of these three protocols:
 
-PIPE, MESSAGE QUEUE, and SHARED MEMORY
+PIPE, SHARED MEMORY and MESSAGE QUEUE
 
 ## Progress
 
@@ -17,10 +17,10 @@ PIPE, MESSAGE QUEUE, and SHARED MEMORY
 - [x] Receiver Implementation
 - [x] Sender Pipe Implementation
 - [x] Receiver Pipe Implementation
-- [-] Receiver Message Queue Implementation
+- [x] Sender SHM Implementation
+- [x] Receiver SHM Implementation
 - [-] Sender Message Queue Implementation
-- [-] Sender SHM Implementation
-- [-] Receiver SHM Implementation
+- [-] Receiver Message Queue Implementation
 
 ## How to
 
