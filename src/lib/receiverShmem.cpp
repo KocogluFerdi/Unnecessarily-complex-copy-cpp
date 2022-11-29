@@ -1,7 +1,7 @@
 #include "shmemCommon.hpp"
 
 ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semProdName, const std::string &semConsName)
-:shmPath(shmPath),semProdName(semProdName),semConsName(semConsName)
+    : shmPath(shmPath), semProdName(semProdName), semConsName(semConsName)
 {
     semHandleProd = sem_open(semProdName.c_str(), O_RDWR);
     while (semHandleProd == SEM_FAILED)
@@ -29,7 +29,6 @@ ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semP
         throw std::runtime_error("mmap():" + std::string(strerror(errno)));
     }
     shm_ctrl = reinterpret_cast<Shmem_control *>(static_cast<char *>(memptr) + BUF_SIZE);
-
 }
 
 ReceiverShmem::~ReceiverShmem()

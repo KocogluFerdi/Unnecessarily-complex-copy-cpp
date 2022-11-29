@@ -23,7 +23,7 @@ private:
     std::string semProdName;
     std::string semConsName;
     int shmfd;
-    void * memptr = nullptr ;
+    void *memptr = nullptr;
     sem_t *semHandleProd = nullptr;
     sem_t *semHandleCons = nullptr;
     size_t BUF_SIZE = 80;
@@ -34,7 +34,7 @@ private:
     Shmem_control *shm_ctrl = nullptr;
 
 public:
-    SenderShmem(const std::string &shmPath = "/shmExample",const std::string &semProdName = "semProd",const std::string &semConsName = "semCons" );
+    SenderShmem(const std::string &shmPath = "/shmExample", const std::string &semProdName = "semProd", const std::string &semConsName = "semCons");
     ~SenderShmem();
     void sendFile(std::string filePath);
 };
@@ -46,7 +46,7 @@ private:
     std::string semProdName;
     std::string semConsName;
     int shmfd;
-    void * memptr = nullptr;
+    void *memptr = nullptr;
     sem_t *semHandleProd = nullptr;
     sem_t *semHandleCons = nullptr;
     size_t BUF_SIZE = 80;
@@ -56,12 +56,10 @@ private:
     };
     Shmem_control *shm_ctrl = nullptr;
 
-
 public:
-    ReceiverShmem(const std::string &shmPath = "/shmExample",const std::string &semProdName = "semProd",const std::string &semConsName = "semCons");
+    ReceiverShmem(const std::string &shmPath = "/shmExample", const std::string &semProdName = "semProd", const std::string &semConsName = "semCons");
     ~ReceiverShmem();
     void receiveFile(std::string filePath);
 };
 
 #endif
-
