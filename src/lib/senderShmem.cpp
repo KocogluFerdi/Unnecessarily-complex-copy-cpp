@@ -59,7 +59,6 @@ void SenderShmem::sendFile(std::string filePath)
         std::memcpy(memptr,buf.data(),in.gcount());
         shm_ctrl->bytes_send = in.gcount();
         sem_post(semHandleProd);
-        //std::cout <<"Send:"<< in.gcount() << std::endl;
     } while (in.gcount() > 0); 
 
     in.close();

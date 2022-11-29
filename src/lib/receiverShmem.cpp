@@ -4,10 +4,8 @@ ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semP
 :shmPath(shmPath),semProdName(semProdName),semConsName(semConsName)
 {
     semHandleProd = sem_open(semProdName.c_str(), O_RDWR);
-    // try solving the problem of running receiver earlier that sender here
     while (semHandleProd == SEM_FAILED)
     {
-        //    throw std::runtime_error("sem_open() for producer:"+std::string(strerror(errno)));
         std::cout << "Waiting for the sender to run..." << std::endl;
         std::cout << "If you have run the sender, sem_open() for producer fails" << std::endl;
         sleep(2);
@@ -45,7 +43,6 @@ ReceiverShmem::~ReceiverShmem()
 
 void ReceiverShmem::receiveFile(std::string filePath)
 {
-    // Use binary mode so we can handle all kinds of file content.
     std::ofstream out(filePath, std::ios_base::out | std::ios_base::binary);
     std::vector<char> buf(BUF_SIZE);
     size_t receive_size = 0;
@@ -56,7 +53,6 @@ void ReceiverShmem::receiveFile(std::string filePath)
         std::memcpy(buf.data(), memptr, receive_size);
         out.write(buf.data(), receive_size);
         sem_post(semHandleCons);
-        //std::cout << "Receive:" << receive_size << std::endl;
     } while (receive_size > 0);
 
     out.close();
