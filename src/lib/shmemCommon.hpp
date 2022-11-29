@@ -16,7 +16,6 @@
 #include <sys/shm.h>
 #include <vector>
 #include <cstring>
-#include <gtest/gtest_prod.h>
 class SenderShmem
 {
 private:
