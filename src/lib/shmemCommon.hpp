@@ -26,7 +26,7 @@ private:
     void *memptr = nullptr;
     sem_t *semHandleProd = nullptr;
     sem_t *semHandleCons = nullptr;
-    size_t BUF_SIZE = 80;
+    size_t BUF_SIZE = 2048;
     struct Shmem_control
     {
         size_t bytes_send;
@@ -49,7 +49,7 @@ private:
     void *memptr = nullptr;
     sem_t *semHandleProd = nullptr;
     sem_t *semHandleCons = nullptr;
-    size_t BUF_SIZE = 80;
+    size_t BUF_SIZE = 2048;
     struct Shmem_control
     {
         size_t bytes_send;

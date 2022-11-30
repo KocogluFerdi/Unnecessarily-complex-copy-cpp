@@ -127,6 +127,21 @@ class ShmemTest1m : public testing::Test {
   std::string receiveFileName = "gTEST5";
 };
 
+class ShmemTest500m : public testing::Test {
+ protected:  
+  void SetUp() override {
+    createFile(sendFileName,sendFileSize);
+  }
+
+  void TearDown() override {
+    deleteFile(sendFileName);
+  }
+
+  std::string sendFileName = "gTest6.txt";
+  std::string sendFileSize = "500m";
+  std::string receiveFileName = "gTEST6";
+};
+
 TEST_F(PipeTest1k, Pipe)
 {
 
@@ -240,6 +255,27 @@ TEST_F(ArgsParser2, Argsparser)
 }
 
 TEST_F(ShmemTest1m, Shmem)
+{
+    SenderShmem sender;
+    ReceiverShmem receiver;
+
+    auto senderSendFile = [&](){
+        sender.sendFile(sendFileName);
+    };
+
+    auto receiverReceiveFile = [&](){
+        receiver.receiveFile(receiveFileName);
+    };
+
+    std::thread s_thread(senderSendFile);
+    std::thread r_thread(receiverReceiveFile);
+    s_thread.join();
+    r_thread.join();
+
+    deleteFile(receiveFileName);
+}
+
+TEST_F(ShmemTest500m, Shmem)
 {
     SenderShmem sender;
     ReceiverShmem receiver;

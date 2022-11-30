@@ -7,12 +7,11 @@ ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semP
     while (semHandleProd == SEM_FAILED)
     {
         std::cout << "Waiting for the sender to run..." << std::endl;
-        std::cout << "If you have run the sender, sem_open() for producer fails" << std::endl;
         sleep(2);
         semHandleProd = sem_open(semProdName.c_str(), O_RDWR);
     }
 
-    semHandleCons = sem_open(semConsName.c_str(), O_RDWR);
+    semHandleCons = sem_open(semConsName.c_str(), O_RDWR); 
     if (semHandleCons == SEM_FAILED)
     {
         throw std::runtime_error("sem_open() for consumer:" + std::string(strerror(errno)));
