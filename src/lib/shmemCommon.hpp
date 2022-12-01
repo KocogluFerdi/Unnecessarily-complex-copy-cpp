@@ -36,6 +36,7 @@ private:
 public:
     SenderShmem(const std::string &shmPath = "/shmExample", const std::string &semProdName = "semProd", const std::string &semConsName = "semCons");
     ~SenderShmem();
+    void init();
     void sendFile(std::string filePath);
 };
 
@@ -59,6 +60,7 @@ private:
 public:
     ReceiverShmem(const std::string &shmPath = "/shmExample", const std::string &semProdName = "semProd", const std::string &semConsName = "semCons");
     ~ReceiverShmem();
+    void init();
     void receiveFile(std::string filePath);
 };
 

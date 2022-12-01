@@ -2,11 +2,11 @@
 #include "src/lib/argsParser.hpp"
 #include "src/lib/shmemCommon.hpp"
 
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    try{
-        ArgsParser argsParser(argc,argv);
+    try
+    {
+        ArgsParser argsParser(argc, argv);
         ipcType method = argsParser.getMethod();
         switch (method)
         {
@@ -18,23 +18,25 @@ int main(int argc, char* argv[])
             sender.sendFile(argsParser.getFileName());
             break;
         }
-         case ipcType::SharedMemory:
+        case ipcType::SharedMemory:
         {
             std::cout << "Shared Memory Is Used: " << std::endl;
             SenderShmem sender;
+            sender.init();
             sender.sendFile(argsParser.getFileName());
             break;
         }
         case ipcType::OtherSituation:
         {
-    return 0;
+            return 0;
         }
         default:
-        std::cout << "IPC Type is not valid"<< std::endl;
+            std::cout << "IPC Type is not valid" << std::endl;
             return -1;
         }
     }
-    catch(const std::exception &e){
+    catch (const std::exception &e)
+    {
         std::cerr << e.what() << '\n';
     }
     return -1;

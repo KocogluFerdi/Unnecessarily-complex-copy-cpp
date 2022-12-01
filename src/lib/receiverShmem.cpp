@@ -3,6 +3,10 @@
 ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semProdName, const std::string &semConsName)
     : shmPath(shmPath), semProdName(semProdName), semConsName(semConsName)
 {
+}
+
+void ReceiverShmem::init()
+{
     semHandleProd = sem_open(semProdName.c_str(), O_RDWR);
     while (semHandleProd == SEM_FAILED)
     {
@@ -11,7 +15,7 @@ ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semP
         semHandleProd = sem_open(semProdName.c_str(), O_RDWR);
     }
 
-    semHandleCons = sem_open(semConsName.c_str(), O_RDWR); 
+    semHandleCons = sem_open(semConsName.c_str(), O_RDWR);
     if (semHandleCons == SEM_FAILED)
     {
         throw std::runtime_error("sem_open() for consumer:" + std::string(strerror(errno)));
@@ -27,16 +31,8 @@ ReceiverShmem::ReceiverShmem(const std::string &shmPath, const std::string &semP
     {
         throw std::runtime_error("mmap():" + std::string(strerror(errno)));
     }
-    shm_ctrl = reinterpret_cast<Shmem_control *>(static_cast<char *>(memptr) + BUF_SIZE);
-}
-
-ReceiverShmem::~ReceiverShmem()
-{
-    munmap(memptr, BUF_SIZE);
     close(shmfd);
-    sem_close(semHandleCons);
-    sem_close(semHandleProd);
-    shm_unlink(shmPath.c_str());
+    shm_ctrl = reinterpret_cast<Shmem_control *>(static_cast<char *>(memptr) + BUF_SIZE);
 }
 
 void ReceiverShmem::receiveFile(std::string filePath)
@@ -48,10 +44,17 @@ void ReceiverShmem::receiveFile(std::string filePath)
     {
         sem_wait(semHandleProd);
         receive_size = shm_ctrl->bytes_send;
-        std::memcpy(buf.data(), memptr, receive_size);
-        out.write(buf.data(), receive_size);
+        out.write(static_cast<char *>(memptr), receive_size);
         sem_post(semHandleCons);
     } while (receive_size > 0);
 
     out.close();
+}
+
+ReceiverShmem::~ReceiverShmem()
+{
+    munmap(memptr, BUF_SIZE);
+    sem_close(semHandleCons);
+    sem_close(semHandleProd);
+    shm_unlink(shmPath.c_str());
 }

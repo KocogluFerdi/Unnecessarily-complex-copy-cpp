@@ -3,7 +3,10 @@
 SenderShmem::SenderShmem(const std::string &shmPath, const std::string &semProdName, const std::string &semConsName)
     : shmPath(shmPath), semProdName(semProdName), semConsName(semConsName)
 {
+}
 
+void SenderShmem::init()
+{
     sem_unlink(semProdName.c_str());
     sem_unlink(semConsName.c_str());
 
@@ -34,19 +37,8 @@ SenderShmem::SenderShmem(const std::string &shmPath, const std::string &semProdN
     {
         throw std::runtime_error("mmap():" + std::string(strerror(errno)));
     }
-
-    shm_ctrl = reinterpret_cast<Shmem_control *>(static_cast<char *>(memptr) + BUF_SIZE);
-}
-
-SenderShmem::~SenderShmem()
-{
-    munmap(memptr, BUF_SIZE);
     close(shmfd);
-    sem_close(semHandleCons);
-    sem_close(semHandleProd);
-    sem_unlink(semProdName.c_str());
-    sem_unlink(semConsName.c_str());
-    shm_unlink(shmPath.c_str());
+    shm_ctrl = reinterpret_cast<Shmem_control *>(static_cast<char *>(memptr) + BUF_SIZE);
 }
 
 void SenderShmem::sendFile(std::string filePath)
@@ -65,11 +57,20 @@ void SenderShmem::sendFile(std::string filePath)
     do
     {
         sem_wait(semHandleCons);
-        in.read(buf.data(), buf.size());
-        std::memcpy(memptr, buf.data(), in.gcount());
+        in.read(static_cast<char *>(memptr), buf.size());
         shm_ctrl->bytes_send = in.gcount();
         sem_post(semHandleProd);
     } while (in.gcount() > 0);
 
     in.close();
+}
+
+SenderShmem::~SenderShmem()
+{
+    munmap(memptr, BUF_SIZE);
+    sem_close(semHandleCons);
+    sem_close(semHandleProd);
+    sem_unlink(semProdName.c_str());
+    sem_unlink(semConsName.c_str());
+    shm_unlink(shmPath.c_str());
 }
