@@ -147,7 +147,7 @@ protected:
   std::string receiveFileName = "gTEST5";
 };
 
-class ShmemTest500m : public testing::Test
+class ShmemTest100m : public testing::Test
 {
 protected:
   void SetUp() override
@@ -161,7 +161,7 @@ protected:
   }
 
   std::string sendFileName = "gTest6.txt";
-  std::string sendFileSize = "500m";
+  std::string sendFileSize = "100m";
   std::string receiveFileName = "gTEST6";
 };
 
@@ -347,7 +347,7 @@ TEST_F(ShmemTest1m, Shmem)
   deleteFile(receiveFileName);
 }
 
-TEST_F(ShmemTest500m, Shmem)
+TEST_F(ShmemTest100m, Shmem)
 {
   SenderShmem sender;
   ReceiverShmem receiver;
