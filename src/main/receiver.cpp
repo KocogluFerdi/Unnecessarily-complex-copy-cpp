@@ -1,6 +1,7 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 #include "src/lib/shmemCommon.hpp"
+#include "src/lib/MsgqCommon.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,13 @@ int main(int argc, char *argv[])
             std::cout << "Shared Memory Is Used: " << std::endl;
             ReceiverShmem receiver;
             receiver.init();
+            receiver.receiveFile(argsParser.getFileName());
+            break;
+        }
+        case ipcType::Queue:
+        {
+            std::cout << "Message Queue Is Used: " << std::endl;
+            ReceiverMsgq receiver;
             receiver.receiveFile(argsParser.getFileName());
             break;
         }

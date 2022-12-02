@@ -24,7 +24,7 @@ ArgsParser::ArgsParser(int argc, char *argv[])
             break;
         case 'h':
             std::cout << "Usage: my_program [-p] for file transfer by named pipe" << std::endl;
-            std::cout << "                  [-q] for file transfer by message queue (not implemented yet)" << std::endl;
+            std::cout << "                  [-q] for file transfer by message queue" << std::endl;
             std::cout << "                  [-s] for file transfer by shared memory" << std::endl;
             std::cout << "                  [-f] for file to read/write" << std::endl;
             std::cout << "                  [-h] for this help command" << std::endl;

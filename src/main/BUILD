@@ -7,6 +7,7 @@ cc_binary(
     deps = [
         "//src/lib:senderPipe",
         "//src/lib:senderShmem",
+        "//src/lib:senderMsgq",
         "//src/lib:argsParser"
     ],
     visibility = ["//visibility:public"],
@@ -20,6 +21,7 @@ cc_binary(
     deps = [
         "//src/lib:receiverPipe",
         "//src/lib:receiverShmem",
+        "//src/lib:receiverMsgq",
         "//src/lib:argsParser",
     ],
     visibility = ["//visibility:public"],
