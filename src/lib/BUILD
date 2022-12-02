@@ -46,4 +46,24 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
 )
+cc_library(
+    name = "receiverMsgq",
+    srcs = ["receiverMsgq.cpp"],
+    hdrs = ["MsgqCommon.hpp"],
+    deps = [
+        "@com_google_googletest//:gtest_main",
+    ],
+    visibility = ["//visibility:public"],
+)
+cc_library(
+    name = "senderMsgq",
+    srcs = ["senderMsgq.cpp"],
+    hdrs = ["MsgqCommon.hpp"],
+    deps = [
+        "@com_google_googletest//:gtest_main",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+
 

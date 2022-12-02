@@ -2,6 +2,7 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
 #include "src/lib/shmemCommon.hpp"
+#include "src/lib/MsgqCommon.hpp"
 
 #include <string>
 #include <thread>
@@ -164,6 +165,42 @@ protected:
   std::string receiveFileName = "gTEST6";
 };
 
+class MsgqTest1m : public testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    createFile(sendFileName, sendFileSize);
+  }
+
+  void TearDown() override
+  {
+    deleteFile(sendFileName);
+  }
+
+  std::string sendFileName = "gTest7.txt";
+  std::string sendFileSize = "1m";
+  std::string receiveFileName = "gTEST7";
+};
+
+class MsgqTest100m : public testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    createFile(sendFileName, sendFileSize);
+  }
+
+  void TearDown() override
+  {
+    deleteFile(sendFileName);
+  }
+
+  std::string sendFileName = "gTest8.txt";
+  std::string sendFileSize = "100m";
+  std::string receiveFileName = "gTEST8";
+};
+
 TEST_F(PipeTest1k, Pipe)
 {
 
@@ -317,6 +354,54 @@ TEST_F(ShmemTest500m, Shmem)
 
   sender.init();
   receiver.init();
+
+  auto senderSendFile = [&]()
+  {
+    sender.sendFile(sendFileName);
+  };
+
+  auto receiverReceiveFile = [&]()
+  {
+    receiver.receiveFile(receiveFileName);
+  };
+
+  std::thread s_thread(senderSendFile);
+  std::thread r_thread(receiverReceiveFile);
+  s_thread.join();
+  r_thread.join();
+
+  deleteFile(receiveFileName);
+}
+
+TEST_F(MsgqTest1m, Queue)
+{
+
+  SenderMsgq sender;
+  ReceiverMsgq receiver;
+
+  auto senderSendFile = [&]()
+  {
+    sender.sendFile(sendFileName);
+  };
+
+  auto receiverReceiveFile = [&]()
+  {
+    receiver.receiveFile(receiveFileName);
+  };
+
+  std::thread s_thread(senderSendFile);
+  std::thread r_thread(receiverReceiveFile);
+  s_thread.join();
+  r_thread.join();
+
+  deleteFile(receiveFileName);
+}
+
+TEST_F(MsgqTest100m, Queue)
+{
+
+  SenderMsgq sender;
+  ReceiverMsgq receiver;
 
   auto senderSendFile = [&]()
   {

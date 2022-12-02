@@ -19,8 +19,8 @@ PIPE, SHARED MEMORY and MESSAGE QUEUE
 - [x] Receiver Pipe Implementation
 - [x] Sender SHM Implementation
 - [x] Receiver SHM Implementation
-- [-] Sender Message Queue Implementation
-- [-] Receiver Message Queue Implementation
+- [x] Sender Message Queue Implementation
+- [x] Receiver Message Queue Implementation
 
 ## How to
 

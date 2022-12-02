@@ -8,6 +8,8 @@ cc_test(
     "//src/lib:receiverPipe",
     "//src/lib:senderShmem",
     "//src/lib:receiverShmem",
+    "//src/lib:senderMsgq",
+    "//src/lib:receiverMsgq",
     "//src/lib:argsParser",
 
   ],
