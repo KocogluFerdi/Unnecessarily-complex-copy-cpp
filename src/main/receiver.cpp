@@ -1,5 +1,6 @@
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
+#include "src/lib/shmemCommon.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -16,15 +17,21 @@ int main(int argc, char *argv[])
             receiver.receiveFile(argsParser.getFileName());
             break;
         }
+        case ipcType::SharedMemory:
+        {
+            std::cout << "Shared Memory Is Used: " << std::endl;
+            ReceiverShmem receiver;
+            receiver.init();
+            receiver.receiveFile(argsParser.getFileName());
+            break;
+        }
         case ipcType::OtherSituation:
         {
             return 0;
         }
         default:
-        {
             std::cout << "IPC Type is not valid" << std::endl;
-        }
-        return -1;
+            return -1;
         }
     }
     catch (const std::exception &e)

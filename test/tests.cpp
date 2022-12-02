@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "src/lib/pipeCommon.hpp"
 #include "src/lib/argsParser.hpp"
+#include "src/lib/shmemCommon.hpp"
+
 #include <string>
 #include <thread>
 #include <vector>
@@ -26,6 +28,7 @@ std::vector<char *> createArgv(std::vector<std::string> arguments)
     argv.push_back((char *)arg.data());
   }
   argv.push_back(nullptr);
+
   return argv;
 }
 
@@ -125,8 +128,45 @@ public:
   std::vector<char *> argv = createArgv({"file.txt", "-f", "testPipe", "-p"});
 };
 
+class ShmemTest1m : public testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    createFile(sendFileName, sendFileSize);
+  }
+
+  void TearDown() override
+  {
+    deleteFile(sendFileName);
+  }
+
+  std::string sendFileName = "gTest5.txt";
+  std::string sendFileSize = "1m";
+  std::string receiveFileName = "gTEST5";
+};
+
+class ShmemTest500m : public testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    createFile(sendFileName, sendFileSize);
+  }
+
+  void TearDown() override
+  {
+    deleteFile(sendFileName);
+  }
+
+  std::string sendFileName = "gTest6.txt";
+  std::string sendFileSize = "500m";
+  std::string receiveFileName = "gTEST6";
+};
+
 TEST_F(PipeTest1k, Pipe)
 {
+
   SenderPipe sender;
   ReceiverPipe receiver;
 
@@ -149,6 +189,7 @@ TEST_F(PipeTest1k, Pipe)
 
 TEST_F(PipeTest1m, Pipe)
 {
+
   SenderPipe sender;
   ReceiverPipe receiver;
 
@@ -171,6 +212,7 @@ TEST_F(PipeTest1m, Pipe)
 
 TEST_F(PipeTest10m, Pipe)
 {
+
   SenderPipe sender;
   ReceiverPipe receiver;
 
@@ -194,6 +236,7 @@ TEST_F(PipeTest10m, Pipe)
 
 TEST_F(PipeTest100m, Pipe)
 {
+
   SenderPipe sender;
   ReceiverPipe receiver;
 
@@ -239,4 +282,56 @@ TEST_F(ArgsParser2, Argsparser)
 
   std::thread a_thread(argParserGetFileName);
   a_thread.join();
+}
+
+TEST_F(ShmemTest1m, Shmem)
+{
+  SenderShmem sender;
+  ReceiverShmem receiver;
+
+  sender.init();
+  receiver.init();
+
+  auto senderSendFile = [&]()
+  {
+    sender.sendFile(sendFileName);
+  };
+
+  auto receiverReceiveFile = [&]()
+  {
+    receiver.receiveFile(receiveFileName);
+  };
+
+  std::thread s_thread(senderSendFile);
+  std::thread r_thread(receiverReceiveFile);
+  s_thread.join();
+  r_thread.join();
+
+  deleteFile(receiveFileName);
+}
+
+TEST_F(ShmemTest500m, Shmem)
+{
+  SenderShmem sender;
+  ReceiverShmem receiver;
+
+  sender.init();
+  receiver.init();
+
+  auto senderSendFile = [&]()
+  {
+    sender.sendFile(sendFileName);
+  };
+
+  auto receiverReceiveFile = [&]()
+  {
+    receiver.receiveFile(receiveFileName);
+  };
+
+  std::thread s_thread(senderSendFile);
+  std::thread r_thread(receiverReceiveFile);
+  s_thread.join();
+  r_thread.join();
+
+  deleteFile(receiveFileName);
 }
